@@ -6,9 +6,13 @@
 
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Raleway;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0px;
   background-color: #e6e6e6;
-  color: #333;
+  color: #323232;
   /* text-align: center; */
 }
 
@@ -28,7 +32,21 @@ body {
 .title {
     font-size: 20px;
     font-weight: bold;
-    color: #333;
+}
+
+h1 {
+  font-size: 50px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+label {
+  font-family: Raleway;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #919191;
 }
 
 .container {
@@ -39,7 +57,7 @@ body {
 }
 
 .div-title p {
-  background-color: #00B1B7;
+  background-color: #1fbdbd;
   text-align: center;
   padding: 20px 0;
   margin-bottom: 20px;
@@ -53,6 +71,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 30px;
+  /* flex-wrap: wrap; */
 }
 
 .div-right {
@@ -63,7 +82,7 @@ body {
   margin-bottom: 20px;
   width: 50%;
   row-gap: 30px;
-  
+  text-align: center;
 }
 
 .div1 {
@@ -85,17 +104,46 @@ body {
 }
 
 .div-left {
-  background-color: #00B1B7;
+  background-color: #1fbdbd;
   color: #fff;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   width: 50%;
+  margin-bottom: 30px;
 }
 
+/* .div-right, .div-left {
+  width: 50%;
+  margin-bottom: 20px;
+} */
+
 .form-label {
-  font-family: 'Cabin';
+  font-family: Raleway;
+  font-style: normal;
   font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #323232;
+}
+
+.form-text, h5 {
+  font-family: Raleway;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #fff;
+  padding-bottom: 10px;
+}
+
+h6 {
+  font-family: Raleway;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #323232;
 }
 
 .button {
@@ -134,7 +182,7 @@ h6 {
 .signup-btn {
     margin-top: 20px;
     padding: 10px 20px;
-    background: #00B1B7;
+    background: #1fbdbd;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -161,11 +209,12 @@ h6 {
     text-decoration: underline;
 }
 
-@media (min-width: 600px) {
- .div-right {
+@media (max-width: 700px) {
+  .div {
+    flex-wrap: wrap;
+  }
+
+ .div-right, .div-left {
   width: 100%;
  } 
- .div-left {
-  width: 100%;
- }
 }

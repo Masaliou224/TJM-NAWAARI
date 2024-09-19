@@ -36,7 +36,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ amount, baseCurre
     <div className="mt-4">
       <h5>Convertir le TJM en une autre devise</h5>
       <div className="mb-3">
-        <label className="form-label">Choisissez une devise</label>
+        <label className="form-text">Choisissez une devise</label>
         <select
           className="form-select"
           value={targetCurrency}
@@ -55,7 +55,7 @@ const CurrencyConverter: React.FC<CurrencyConverterProps> = ({ amount, baseCurre
       ) : error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <h6>TJM Converti: {convertedAmount?.toFixed(2)} {targetCurrency}</h6>
+        <h5>TJM Converti: {convertedAmount?.toFixed(2)} {targetCurrency}</h5>
       )}
     </div>
   );

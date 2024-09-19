@@ -1,13 +1,12 @@
 import { useState } from "react"
 import FunctionalCharges from "./FunctionalCharges";
-import DiversesCharges from "./DiversesCharges";
 import CurrencyConverter from "./CurrencyConverter";
 import axios from "axios";
 
 const TJMCalculator: React.FC = () => {
   const [desiredSalary, setDesiredSalary] = useState<number>(0);
   const [functionalChargesTotal, setFunctionalChargesTotal] = useState<number>(0);
-  const [diversesChargesTotal, setDiversesChargesTotal] = useState<number>(0);
+  // const [diversesChargesTotal, setDiversesChargesTotal] = useState<number>(0);
   const [workDays, setWorkDays] = useState<number>(0);
   const [currency, setCurrency] = useState<string>('EUR');
   const [exchangeRate, setExchangeRate] = useState<number>(1);
@@ -33,7 +32,7 @@ const TJMCalculator: React.FC = () => {
 
   const calculateTJM = () => {
     if (workDays === 0) return 0;
-    const totalCharges = (desiredSalary + functionalChargesTotal + diversesChargesTotal);
+    const totalCharges = (desiredSalary + functionalChargesTotal);
     return (totalCharges / workDays);
   };
 
@@ -54,28 +53,28 @@ const TJMCalculator: React.FC = () => {
               type="number"
               className="form-control"
               value={desiredSalary}
-              onChange={(e) => setDesiredSalary(parseFloat(e.target.value) || 0)}
+              onChange={(e) => setDesiredSalary(parseFloat(e.target.value))}
             />
           </div>
 
           <FunctionalCharges onUpdate={setFunctionalChargesTotal} />
-          <DiversesCharges onUpdate={setDiversesChargesTotal} />
+          
 
         </div>
 
         <div className="div-left">
           <div className="mb-4">
-            <label className="form-label">Nombre de Jours Travaillés</label>
+            <label className="form-text">Nombre de Jours Travaillés</label>
             <input
               type="number"
               className="form-control"
               value={workDays}
-              onChange={(e) => setWorkDays(parseFloat(e.target.value) || 0)}
+              onChange={(e) => setWorkDays(parseFloat(e.target.value))}
             />
           </div>
 
           <div className="mb-4">
-            <label className="form-label">Choisir la Devise pour le Calcul</label>
+            <label className="form-text">Choisir la Devise pour le Calcul</label>
             <select className="form-select" value={currency} onChange={handleCurrencyChange}>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>

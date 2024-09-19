@@ -1,102 +1,80 @@
 import { useEffect, useState } from "react";
-import logo from '../assets/images/Flêche.jpeg'
-
-interface Charges {
-  workTools: number;
-  rent: number;
-  bills: number;
-  travel: number;
-  others: number;
+import '../App.css';
+interface Charge {
+  type: string;
+  amount: number;
 }
 
 interface FunctionalChargesProps {
   onUpdate: (total: number) => void;
 }
 
+const chargeOptions = [
+  { value: "workTools", label: "Outils de Travail" },
+  { value: "rent", label: "Loyer bureau" },
+  { value: "bills", label: "Factures" },
+  { value: "expenses", label: "Dépenses"},
+  { value: "insurance", label: "Assurances" },
+  { value: "others", label: "Autres" }
+];
+
 const FunctionalCharges : React.FC<FunctionalChargesProps> = ({ onUpdate }) => {
-  const [isVisible, setVisible] = useState(false);
+  const [charges, setCharges] = useState<Charge[]>([]);
+  const [newChargeType, setNewChargeType] = useState<string>(chargeOptions[0].value);
+  const [newChargeAmount, setNewChargeAmount] = useState<number>(0);
 
-  const toggleVisibility = () => {
-    setVisible(!isVisible);
+  const isChargeAdded = charges.some(charge => charge.type === newChargeType);
+
+  const handleAddCharge = () => {
+    setCharges([...charges, { type: newChargeType, amount: newChargeAmount }]);
+    setNewChargeAmount(0);
   };
- 
-
-  const [charges, setCharges] = useState<Charges>({
-    workTools: 0,
-    rent: 0,
-    bills: 0,
-    travel: 0,
-    others: 0,
-  });
 
   const calculateTotal = () => {
-    return Object.values(charges).reduce((acc, charge) => acc + charge, 0);
+    return charges.reduce((acc, charge) => acc + charge.amount, 0);
   };
 
   useEffect(() => {
     onUpdate(calculateTotal());
   }, [charges]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCharges({
-      ...charges,
-      [e.target.name]: parseFloat(e.target.value) || 0,
-    });
-  };
+
 
   return (
     <div className="card div2">
       <div className="card-body">
         <h5 className="card-title">Charges Fonctionnelles</h5>
-        <button onClick={toggleVisibility} className="button" >{isVisible ? 'Frais de fonctionnement' : 'Frais de fonctionnement'} <img src={logo} alt="Fleche logo" className="fleche" /> </button>
-        <div style={{ display: isVisible ? 'block' : 'none'}}>
+
           <div className="mb-3">
-            <label className="form-label">Outils de Travail</label>
+            <label className="form-label">Type de charge</label>
+            <select 
+              className="form-select"
+              value={newChargeType}
+              onChange={(e) => setNewChargeType(e.target.value)}
+            >
+              {chargeOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Montant</label>
             <input
               type="number"
               className="form-control"
-              name="workTools"
-              onChange={handleChange}
+              value={newChargeAmount}
+              onChange={(e) => setNewChargeAmount(parseFloat(e.target.value) )}
             />
           </div>
-          <div className="mb-3">
-            <label className="form-label">Loyer bureau</label>
-            <input
-              type="number"
-              className="form-control"
-              name="rent"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Factures</label>
-            <input
-              type="number"
-              className="form-control"
-              name="bills"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Voyage</label>
-            <input
-              type="number"
-              className="form-control"
-              name="travel"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Autres</label>
-            <input
-              type="number"
-              className="form-control"
-              name="others"
-              onChange={handleChange}
-            />
-          </div>
-          
-        </div>
+          <button 
+            onClick={handleAddCharge} 
+            className="signup-btn"
+            disabled={isChargeAdded}
+          >
+              Ajouter Charge
+          </button>
         <h6><span> Soit un total de: </span> <span> {calculateTotal()} Par mois </span></h6>
       </div>
     </div>
